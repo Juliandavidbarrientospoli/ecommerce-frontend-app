@@ -3,14 +3,20 @@
     <!-- Header con barra de búsqueda -->
     <div class="row mb-4 align-items-center">
       <div class="col-lg-6 mb-3 mb-lg-0">
-        <h1 class="fw-bold"><span class="text-primary">Catálogo</span> de Productos</h1>
+        <h1 class="fw-bold">
+          <span class="text-primary">Catálogo</span> de Productos
+        </h1>
       </div>
       <div class="col-lg-6">
         <div class="input-group">
           <span class="input-group-text bg-white">
             <i class="bi bi-search"></i>
           </span>
-          <input type="text" class="form-control" placeholder="Buscar productos..." />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar productos..."
+          />
         </div>
       </div>
     </div>
@@ -43,10 +49,15 @@
             <div class="ratio ratio-4x3 bg-light">
               <!-- Aquí iría la imagen -->
             </div>
-            <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle">
+            <button
+              class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle"
+            >
               <i class="bi bi-heart"></i>
             </button>
-            <span class="badge bg-primary position-absolute bottom-0 start-0 m-2">Nuevo</span>
+            <span
+              class="badge bg-primary position-absolute bottom-0 start-0 m-2"
+              >Nuevo</span
+            >
           </div>
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -57,7 +68,9 @@
               </div>
             </div>
             <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text text-muted small flex-grow-1">{{ product.description }}</p>
+            <p class="card-text text-muted small flex-grow-1">
+              {{ product.description }}
+            </p>
             <div class="d-flex justify-content-between align-items-center mt-2">
               <div>
                 <span class="fw-bold text-primary">${{ product.price }}</span>
@@ -89,7 +102,9 @@
         <li class="page-item active"><a class="page-link" href="#">1</a></li>
         <li class="page-item"><a class="page-link" href="#">2</a></li>
         <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#">...</a>
+        </li>
         <li class="page-item"><a class="page-link" href="#">10</a></li>
         <li
           v-if="pagination.next_page_url"
@@ -106,39 +121,39 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import api from '../api/api'
+import { ref, onMounted } from "vue";
+import api from "../api/api";
 
 export default {
   setup() {
-    const products = ref([])
+    const products = ref([]);
     const pagination = ref({
       next_page_url: null,
       prev_page_url: null,
-    })
+    });
 
-    const fetchProducts = async (url = '/products') => {
+    const fetchProducts = async (url = "/products") => {
       try {
-        const response = await api.get(url)
-        console.log('Datos recibidos del backend:', response.data)
+        const response = await api.get(url);
+        console.log("Datos recibidos del backend:", response.data);
 
-        products.value = response.data.data
+        products.value = response.data.data;
         pagination.value = {
           next_page_url: response.data.next_page_url,
           prev_page_url: response.data.prev_page_url,
-        }
+        };
       } catch (error) {
-        console.error('Error al obtener productos:', error)
+        console.error("Error al obtener productos:", error);
       }
-    }
+    };
 
-    onMounted(fetchProducts)
+    onMounted(fetchProducts);
 
     return {
       products,
       pagination,
       fetchProducts,
-    }
+    };
   },
-}
+};
 </script>
